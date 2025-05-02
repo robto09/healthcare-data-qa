@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Quality Check Result - Healthcare Data QA{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>Quality Check Result</h1>
+        <p class="lead">Detailed information about the quality check</p>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="card-title mb-0">{{ result.check_name }}</h5>
+    </div>
+    <div class="card-body">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Status</th>
+                            <td>
+                                <span class="badge bg-{{ 'success' if result.status == 'passed' else 'warning' if result.status == 'warning' else 'danger' }}">
+                                    {{ result.status }}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Table</th>
+                            <td>{{ result.table if result.table else 'All Tables' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Timestamp</th>
+                            <td>{{ result.timestamp }}</td>
+                        </tr>
+                        <tr>
+                            <th>Issues Found</th>
+                            <td>{{ result.issues|length }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {% if result.issues %}
+        <h6 class="mb-3">Issues Details</h6>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Column</th>
+                        <th>Count</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for issue in result.issues %}
+                    <tr>
+                        <td>
+                            <span class="badge bg-warning text-dark">
+                                {{ issue.type|replace('_', ' ')|title }}
+                            </span>
+                        </td>
+                        <td>{{ issue.column if issue.column else '-' }}</td>
+                        <td>{{ issue.count if issue.count else '-' }}</td>
+                        <td>{{ issue.details }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-success">
+            <i class="bi bi-check-circle"></i> No issues found in this quality check.
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{{ url_for('quality') }}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Quality Checks
+    </a>
+</div>
+{% endblock %}

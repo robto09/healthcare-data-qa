@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Quality Checks - Healthcare Data QA{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>Quality Checks</h1>
+        <p class="lead">Data quality validation results</p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col">
+        <form action="{{ url_for('run_quality_check') }}" method="post">
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-play-circle"></i> Run Quality Checks
+            </button>
+        </form>
+    </div>
+</div>
+
+{% if quality_results %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Quality Check Results</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Check Name</th>
+                                <th>Table</th>
+                                <th>Status</th>
+                                <th>Issues</th>
+                                <th>Timestamp</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in quality_results %}
+                            <tr>
+                                <td>{{ result.check_name }}</td>
+                                <td>{{ result.table if result.table else 'All' }}</td>
+                                <td>
+                                    <span class="badge bg-{{ 'success' if result.status == 'passed' else 'warning' if result.status == 'warning' else 'danger' }}">
+                                        {{ result.status }}
+                                    </span>
+                                </td>
+                                <td>{{ result.issue_count }}</td>
+                                <td>{{ result.timestamp }}</td>
+                                <td>
+                                    <a href="{{ url_for('quality_result', filename=result.filename) }}" class="btn btn-sm btn-outline-primary">
+                                        View Details
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="text-center text-muted py-5">
+    <i class="bi bi-clipboard-check fs-1"></i>
+    <p class="mt-3">No quality checks have been run yet.</p>
+    <p>Click the button above to run quality checks on your data.</p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Tables - Healthcare Data QA{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>Tables</h1>
+        <p class="lead">Overview of database tables and their contents</p>
+    </div>
+</div>
+
+<div class="row">
+    {% for table in tables %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="card-title mb-0">{{ table.name|replace('_', ' ')|title }}</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Total Records</th>
+                                <td>{{ table.count }}</td>
+                            </tr>
+                            <tr>
+                                <th>Columns</th>
+                                <td>{{ table.columns }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{{ url_for('table_detail', table_name=table.name) }}" class="btn btn-primary mt-3">
+                    View Details
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if not tables %}
+<div class="text-center text-muted py-5">
+    <i class="bi bi-table fs-1"></i>
+    <p class="mt-3">No tables found in the database.</p>
+</div>
+{% endif %}
+{% endblock %}

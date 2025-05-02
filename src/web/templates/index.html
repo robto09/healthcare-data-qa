@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Healthcare Data QA{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>Dashboard</h1>
+        <p class="lead">Overview of healthcare data and quality metrics</p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Database Statistics</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Table</th>
+                                <th>Records</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for table_name, count in table_counts.items() %}
+                            <tr>
+                                <td>
+                                    <a href="{{ url_for('table_detail', table_name=table_name) }}">
+                                        {{ table_name|replace('_', ' ')|title }}
+                                    </a>
+                                </td>
+                                <td>{{ count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Data Distribution</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="tableDistributionChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Recent Quality Checks</h5>
+                <a href="{{ url_for('quality') }}" class="btn btn-sm btn-primary">View All</a>
+            </div>
+            <div class="card-body">
+                {% if recent_results %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Check</th>
+                                <th>Status</th>
+                                <th>Issues</th>
+                                <th>Timestamp</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in recent_results %}
+                            <tr>
+                                <td>{{ result.check_name }}</td>
+                                <td>
+                                    <span class="badge bg-{{ 'success' if result.status == 'passed' else 'warning' if result.status == 'warning' else 'danger' if result.status == 'failed' else 'secondary' }}">
+                                        {{ result.status }}
+                                    </span>
+                                </td>
+                                <td>{{ result.issue_count }}</td>
+                                <td>{{ result.timestamp }}</td>
+                                <td>
+                                    <a href="{{ url_for('quality_result', filename=result.filename) }}" class="btn btn-sm btn-outline-primary">
+                                        View
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted">No quality checks have been run yet.</p>
+                <a href="{{ url_for('run_quality_check') }}" class="btn btn-primary">Run Quality Check</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-dashboard">
+            <div class="card-body text-center">
+                <i class="bi bi-table fs-1 text-primary"></i>
+                <h5 class="card-title mt-3">Data Tables</h5>
+                <p class="card-text">View and explore healthcare data tables</p>
+                <a href="{{ url_for('tables') }}" class="btn btn-primary">View Tables</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-dashboard">
+            <div class="card-body text-center">
+                <i class="bi bi-check-circle fs-1 text-success"></i>
+                <h5 class="card-title mt-3">Quality Checks</h5>
+                <p class="card-text">Run and view data quality validation checks</p>
+                <a href="{{ url_for('quality') }}" class="btn btn-success">Quality Checks</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-dashboard">
+            <div class="card-body text-center">
+                <i class="bi bi-code-slash fs-1 text-info"></i>
+                <h5 class="card-title mt-3">API Documentation</h5>
+                <p class="card-text">Explore the REST API for data access</p>
+                <a href="{{ url_for('api_docs') }}" class="btn btn-info">API Docs</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var chartData = {{ table_counts | tojson | safe }};
+    var labels = Object.keys(chartData).map(key => key.replace('_', ' ').charAt(0).toUpperCase() + key.slice(1));
+    var data = Object.values(chartData);
+    
+    var ctx = document.getElementById('tableDistributionChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        font: {
+                            size: 12
+                        }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Data Distribution',
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

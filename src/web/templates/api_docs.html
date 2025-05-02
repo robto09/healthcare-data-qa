@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}API Documentation - Healthcare Data QA{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>API Documentation</h1>
+        <p class="lead">RESTful API endpoints for healthcare data quality analysis</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Authentication</h5>
+            </div>
+            <div class="card-body">
+                <p>All API requests require an API key passed in the header:</p>
+                <pre><code>Authorization: Bearer your-api-key-here</code></pre>
+            </div>
+        </div>
+
+        <!-- Data Quality Endpoints -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Data Quality Endpoints</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="mb-3">Run Quality Checks</h6>
+                <pre><code>POST /api/v1/quality/check</code></pre>
+                <p>Run all quality checks on the healthcare data.</p>
+                <h6 class="mt-4">Response</h6>
+                <pre><code>{
+    "status": "success",
+    "data": {
+        "check_id": "20250505_123456",
+        "results": [
+            {
+                "check_name": "Null Value Check",
+                "status": "passed",
+                "issues": []
+            },
+            {
+                "check_name": "Value Range Check",
+                "status": "warning",
+                "issues": [
+                    {
+                        "type": "out_of_range",
+                        "column": "bmi",
+                        "count": 1,
+                        "details": "Found 1 value outside range [10, 60]"
+                    }
+                ]
+            }
+        ]
+    }
+}</code></pre>
+
+                <h6 class="mb-3 mt-5">Get Quality Check Results</h6>
+                <pre><code>GET /api/v1/quality/results</code></pre>
+                <p>Get a list of recent quality check results.</p>
+                <h6>Query Parameters</h6>
+                <ul>
+                    <li><code>limit</code> (optional): Number of results to return (default: 10)</li>
+                    <li><code>status</code> (optional): Filter by status (passed, warning, failed)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data Access Endpoints -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Data Access Endpoints</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="mb-3">Get Patients</h6>
+                <pre><code>GET /api/v1/patients</code></pre>
+                <p>Get a list of patients with optional filtering.</p>
+                <h6>Query Parameters</h6>
+                <ul>
+                    <li><code>region</code> (optional): Filter by region</li>
+                    <li><code>smoker</code> (optional): Filter by smoking status (yes/no)</li>
+                    <li><code>age_min</code> (optional): Minimum age</li>
+                    <li><code>age_max</code> (optional): Maximum age</li>
+                    <li><code>limit</code> (optional): Number of records to return (default: 100)</li>
+                    <li><code>offset</code> (optional): Number of records to skip (default: 0)</li>
+                </ul>
+
+                <h6 class="mb-3 mt-5">Get Insurance Charges</h6>
+                <pre><code>GET /api/v1/charges</code></pre>
+                <p>Get insurance charges data with optional filtering.</p>
+                <h6>Query Parameters</h6>
+                <ul>
+                    <li><code>min_charge</code> (optional): Minimum charge amount</li>
+                    <li><code>max_charge</code> (optional): Maximum charge amount</li>
+                    <li><code>patient_id</code> (optional): Filter by patient ID</li>
+                    <li><code>limit</code> (optional): Number of records to return (default: 100)</li>
+                    <li><code>offset</code> (optional): Number of records to skip (default: 0)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Statistics Endpoints -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Statistics Endpoints</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="mb-3">Get Regional Statistics</h6>
+                <pre><code>GET /api/v1/stats/regional</code></pre>
+                <p>Get statistical analysis by region.</p>
+
+                <h6 class="mb-3 mt-5">Get Age Group Analysis</h6>
+                <pre><code>GET /api/v1/stats/age-groups</code></pre>
+                <p>Get statistical analysis by age groups.</p>
+
+                <h6 class="mb-3 mt-5">Get Charge Distribution</h6>
+                <pre><code>GET /api/v1/stats/charges</code></pre>
+                <p>Get insurance charges distribution analysis.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

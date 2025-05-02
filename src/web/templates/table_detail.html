@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ table_name|title }} - Healthcare Data QA{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>{{ table_name|title }}</h1>
+        <p class="lead">Detailed statistics and information</p>
+    </div>
+</div>
+
+{% if table_name == 'patients' %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Patient Statistics</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Total Patients</th>
+                                <td>{{ stats.total_patients }}</td>
+                            </tr>
+                            <tr>
+                                <th>Average Age</th>
+                                <td>{{ "%.1f"|format(stats.avg_age) }}</td>
+                            </tr>
+                            <tr>
+                                <th>Average BMI</th>
+                                <td>{{ "%.1f"|format(stats.avg_bmi) }}</td>
+                            </tr>
+                            <tr>
+                                <th>Total Children</th>
+                                <td>{{ stats.total_children }}</td>
+                            </tr>
+                            <tr>
+                                <th>Smokers</th>
+                                <td>{{ stats.smoker_count }} ({{ "%.1f"|format(stats.smoker_count / stats.total_patients * 100) }}%)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Region Distribution</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="regionChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var ctx = document.getElementById('regionChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: {{ regions|map(attribute='region')|list|tojson|safe }},
+            datasets: [{
+                data: {{ regions|map(attribute='count')|list|tojson|safe }},
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right'
+                },
+                title: {
+                    display: true,
+                    text: 'Patient Distribution by Region'
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
+
+{% elif table_name == 'insurance_charges' %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Insurance Charges Statistics</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Total Records</th>
+                                <td>{{ stats.total_charges }}</td>
+                            </tr>
+                            <tr>
+                                <th>Average Charges</th>
+                                <td>${{ "%.2f"|format(stats.avg_charges) }}</td>
+                            </tr>
+                            <tr>
+                                <th>Minimum Charges</th>
+                                <td>${{ "%.2f"|format(stats.min_charges) }}</td>
+                            </tr>
+                            <tr>
+                                <th>Maximum Charges</th>
+                                <td>${{ "%.2f"|format(stats.max_charges) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="mt-4">
+    <a href="{{ url_for('tables') }}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Tables
+    </a>
+</div>
+{% endblock %}

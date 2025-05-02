@@ -1,0 +1,1 @@
+"""Web application package for healthcare data quality dashboard."""
