@@ -1,0 +1,477 @@
+{
+  "model_name": "healthcare_cost_predictor",
+  "model_version": "1.0.0",
+  "timestamp": "2025-05-05T12:37:20.407222",
+  "metrics": {
+    "mse": 21073365.415079337,
+    "rmse": 4590.5735387944,
+    "mae": 2533.674643617756,
+    "r2": 0.8642606273649586
+  },
+  "validation_checks": [],
+  "bias_analysis": {},
+  "performance_comparison": {},
+  "healthcare_validation": {
+    "timestamp": "2025-05-05T12:37:20.407396",
+    "output_type": "cost_distribution",
+    "healthcare_specific_checks": [
+      {
+        "rule_name": "cost_distribution_check",
+        "description": "Check if cost predictions follow expected distribution",
+        "passed": false,
+        "details": {
+          "expected_mean": 13000.0,
+          "actual_mean": 13426.992339708178,
+          "expected_std": 5000.0,
+          "actual_std": 12093.24826553946
+        }
+      }
+    ],
+    "clinical_validity": {
+      "clinically_valid": true,
+      "warnings": [],
+      "context_specific": {
+        "valid": true,
+        "context_specific_warnings": []
+      }
+    },
+    "regulatory_compliance": {
+      "compliant": true,
+      "checks": [
+        {
+          "name": "maximum_bias",
+          "passed": true,
+          "value": 0,
+          "threshold": 1.1
+        }
+      ]
+    }
+  },
+  "healthcare_bias": {
+    "timestamp": "2025-05-05T12:37:20.410400",
+    "protected_attributes": {
+      "age": {
+        "groups": {
+          "45": {
+            "size": 4,
+            "mean_prediction": 10877.424396674993,
+            "std_prediction": 534.7554137839662,
+            "outcome_rate": 8395.140337499999,
+            "prediction_rate": 10877.424396674993,
+            "false_positive_rate": 0.0
+          },
+          "36": {
+            "size": 4,
+            "mean_prediction": 13712.6246226,
+            "std_prediction": 14785.618607579592,
+            "outcome_rate": 13534.5516875,
+            "prediction_rate": 13712.6246226,
+            "false_positive_rate": 0.0
+          },
+          "64": {
+            "size": 5,
+            "mean_prediction": 21292.758174160008,
+            "std_prediction": 5960.501299694102,
+            "outcome_rate": 19879.79608,
+            "prediction_rate": 21292.758174160008,
+            "false_positive_rate": 0.0
+          },
+          "46": {
+            "size": 5,
+            "mean_prediction": 17375.70924826,
+            "std_prediction": 14571.15651065999,
+            "outcome_rate": 16506.00917,
+            "prediction_rate": 17375.70924826,
+            "false_positive_rate": 0.0
+          },
+          "19": {
+            "size": 16,
+            "mean_prediction": 8315.467167965628,
+            "std_prediction": 10882.63909310825,
+            "outcome_rate": 9664.568391875,
+            "prediction_rate": 8315.467167965628,
+            "false_positive_rate": 0.0
+          },
+          "34": {
+            "size": 5,
+            "mean_prediction": 14088.062881300002,
+            "std_prediction": 13565.658306547777,
+            "outcome_rate": 11472.85571,
+            "prediction_rate": 14088.062881300002,
+            "false_positive_rate": 0.0
+          },
+          "28": {
+            "size": 7,
+            "mean_prediction": 10159.13446292857,
+            "std_prediction": 11796.181655258317,
+            "outcome_rate": 10706.676804285715,
+            "prediction_rate": 10159.13446292857,
+            "false_positive_rate": 0.0
+          },
+          "49": {
+            "size": 9,
+            "mean_prediction": 11939.936358055556,
+            "std_prediction": 4289.782205445028,
+            "outcome_rate": 11045.807872222222,
+            "prediction_rate": 11939.936358055556,
+            "false_positive_rate": 0.0
+          },
+          "30": {
+            "size": 10,
+            "mean_prediction": 8377.293706159999,
+            "std_prediction": 5548.587310083881,
+            "outcome_rate": 7243.990490000001,
+            "prediction_rate": 8377.293706159999,
+            "false_positive_rate": 0.0
+          },
+          "41": {
+            "size": 5,
+            "mean_prediction": 8044.9934854200055,
+            "std_prediction": 1520.1285132252738,
+            "outcome_rate": 6970.54918,
+            "prediction_rate": 8044.9934854200055,
+            "false_positive_rate": 0.0
+          },
+          "29": {
+            "size": 5,
+            "mean_prediction": 13412.745156940004,
+            "std_prediction": 14579.91515087311,
+            "outcome_rate": 15709.946466,
+            "prediction_rate": 13412.745156940004,
+            "false_positive_rate": 0.0
+          },
+          "60": {
+            "size": 6,
+            "mean_prediction": 19447.187485699993,
+            "std_prediction": 12984.425440856718,
+            "outcome_rate": 21593.216118333334,
+            "prediction_rate": 19447.187485699993,
+            "false_positive_rate": 0.0
+          },
+          "47": {
+            "size": 8,
+            "mean_prediction": 22566.09579161251,
+            "std_prediction": 14625.582663179777,
+            "outcome_rate": 20976.74404375,
+            "prediction_rate": 22566.09579161251,
+            "false_positive_rate": 0.0
+          },
+          "43": {
+            "size": 9,
+            "mean_prediction": 22810.331995477783,
+            "std_prediction": 12933.02217452114,
+            "outcome_rate": 21911.489644444446,
+            "prediction_rate": 22810.331995477783,
+            "false_positive_rate": 0.0
+          },
+          "25": {
+            "size": 8,
+            "mean_prediction": 5402.628318262498,
+            "std_prediction": 1720.6587593890972,
+            "outcome_rate": 5285.6652487500005,
+            "prediction_rate": 5402.628318262498,
+            "false_positive_rate": 0.0
+          },
+          "22": {
+            "size": 9,
+            "mean_prediction": 7611.366432722218,
+            "std_prediction": 11866.876233541136,
+            "outcome_rate": 7166.087361111111,
+            "prediction_rate": 7611.366432722218,
+            "false_positive_rate": 0.0
+          },
+          "50": {
+            "size": 5,
+            "mean_prediction": 18122.758595440006,
+            "std_prediction": 11925.296486045787,
+            "outcome_rate": 19055.075058000002,
+            "prediction_rate": 18122.758595440006,
+            "false_positive_rate": 0.0
+          },
+          "54": {
+            "size": 3,
+            "mean_prediction": 24454.942791366677,
+            "std_prediction": 15794.219174061325,
+            "outcome_rate": 28930.33747,
+            "prediction_rate": 24454.942791366677,
+            "false_positive_rate": 0.0
+          },
+          "27": {
+            "size": 4,
+            "mean_prediction": 13385.78795625001,
+            "std_prediction": 5908.757548348805,
+            "outcome_rate": 14618.986887500003,
+            "prediction_rate": 13385.78795625001,
+            "false_positive_rate": 0.0
+          },
+          "18": {
+            "size": 8,
+            "mean_prediction": 3747.3677890177078,
+            "std_prediction": 2897.908472523489,
+            "outcome_rate": 2332.323152375,
+            "prediction_rate": 3747.3677890177078,
+            "false_positive_rate": 0.0
+          },
+          "40": {
+            "size": 6,
+            "mean_prediction": 13047.970440483337,
+            "std_prediction": 11993.821237340315,
+            "outcome_rate": 17546.823894999998,
+            "prediction_rate": 13047.970440483337,
+            "false_positive_rate": 0.0
+          },
+          "57": {
+            "size": 5,
+            "mean_prediction": 18254.58419736,
+            "std_prediction": 12704.920920339475,
+            "outcome_rate": 20294.778832,
+            "prediction_rate": 18254.58419736,
+            "false_positive_rate": 0.0
+          },
+          "21": {
+            "size": 7,
+            "mean_prediction": 7091.286315399995,
+            "std_prediction": 6379.992813758071,
+            "outcome_rate": 4749.5371642857135,
+            "prediction_rate": 7091.286315399995,
+            "false_positive_rate": 0.0
+          },
+          "26": {
+            "size": 9,
+            "mean_prediction": 5548.969499055557,
+            "std_prediction": 4683.9721263892525,
+            "outcome_rate": 4626.198094444445,
+            "prediction_rate": 5548.969499055557,
+            "false_positive_rate": 0.0
+          },
+          "52": {
+            "size": 8,
+            "mean_prediction": 16733.479025725006,
+            "std_prediction": 4458.692697855352,
+            "outcome_rate": 20596.514567500002,
+            "prediction_rate": 16733.479025725006,
+            "false_positive_rate": 0.0
+          },
+          "56": {
+            "size": 4,
+            "mean_prediction": 12610.384109399994,
+            "std_prediction": 663.304121520692,
+            "outcome_rate": 11521.48105,
+            "prediction_rate": 12610.384109399994,
+            "false_positive_rate": 0.0
+          },
+          "59": {
+            "size": 5,
+            "mean_prediction": 16898.89882204,
+            "std_prediction": 4009.6071210631967,
+            "outcome_rate": 12610.36202,
+            "prediction_rate": 16898.89882204,
+            "false_positive_rate": 0.0
+          },
+          "33": {
+            "size": 5,
+            "mean_prediction": 13727.472938479998,
+            "std_prediction": 15499.462405094759,
+            "outcome_rate": 13123.739969999999,
+            "prediction_rate": 13727.472938479998,
+            "false_positive_rate": 0.0
+          },
+          "31": {
+            "size": 7,
+            "mean_prediction": 17133.34455465714,
+            "std_prediction": 18059.870998237137,
+            "outcome_rate": 14438.035064285714,
+            "prediction_rate": 17133.34455465714,
+            "false_positive_rate": 0.0
+          },
+          "63": {
+            "size": 5,
+            "mean_prediction": 30278.967455339985,
+            "std_prediction": 15197.501999400718,
+            "outcome_rate": 30634.260140000006,
+            "prediction_rate": 30278.967455339985,
+            "false_positive_rate": 0.0
+          },
+          "58": {
+            "size": 4,
+            "mean_prediction": 13009.831247425001,
+            "std_prediction": 686.9821929373045,
+            "outcome_rate": 12674.392275,
+            "prediction_rate": 13009.831247425001,
+            "false_positive_rate": 0.0
+          },
+          "53": {
+            "size": 5,
+            "mean_prediction": 25547.637887399993,
+            "std_prediction": 13395.028140184579,
+            "outcome_rate": 22586.29522,
+            "prediction_rate": 25547.637887399993,
+            "false_positive_rate": 0.0
+          },
+          "61": {
+            "size": 3,
+            "mean_prediction": 16906.39663223332,
+            "std_prediction": 2935.4073599082253,
+            "outcome_rate": 18161.976376666666,
+            "prediction_rate": 16906.39663223332,
+            "false_positive_rate": 0.0
+          },
+          "42": {
+            "size": 5,
+            "mean_prediction": 21207.21751106001,
+            "std_prediction": 16374.867907549773,
+            "outcome_rate": 17439.84253,
+            "prediction_rate": 21207.21751106001,
+            "false_positive_rate": 0.0
+          },
+          "38": {
+            "size": 3,
+            "mean_prediction": 6528.929931933333,
+            "std_prediction": 555.7341213195423,
+            "outcome_rate": 6173.451866666666,
+            "prediction_rate": 6528.929931933333,
+            "false_positive_rate": 0.0
+          },
+          "48": {
+            "size": 2,
+            "mean_prediction": 9497.070825049996,
+            "std_prediction": 326.16112135000367,
+            "outcome_rate": 8043.9206,
+            "prediction_rate": 9497.070825049996,
+            "false_positive_rate": 0.0
+          },
+          "39": {
+            "size": 4,
+            "mean_prediction": 7644.223455300003,
+            "std_prediction": 1550.2190606240688,
+            "outcome_rate": 5995.8755125,
+            "prediction_rate": 7644.223455300003,
+            "false_positive_rate": 0.0
+          },
+          "44": {
+            "size": 5,
+            "mean_prediction": 23126.551294780013,
+            "std_prediction": 17114.667355756665,
+            "outcome_rate": 20874.550460000002,
+            "prediction_rate": 23126.551294780013,
+            "false_positive_rate": 0.0
+          },
+          "20": {
+            "size": 5,
+            "mean_prediction": 6066.363371520001,
+            "std_prediction": 6335.449667797196,
+            "outcome_rate": 4842.45606,
+            "prediction_rate": 6066.363371520001,
+            "false_positive_rate": 0.0
+          },
+          "62": {
+            "size": 5,
+            "mean_prediction": 17885.00096526,
+            "std_prediction": 5619.815889608969,
+            "outcome_rate": 16565.02514,
+            "prediction_rate": 17885.00096526,
+            "false_positive_rate": 0.0
+          },
+          "32": {
+            "size": 6,
+            "mean_prediction": 16358.610171583334,
+            "std_prediction": 14373.70024117073,
+            "outcome_rate": 17210.494066666666,
+            "prediction_rate": 16358.610171583334,
+            "false_positive_rate": 0.0
+          },
+          "23": {
+            "size": 7,
+            "mean_prediction": 10007.798123742861,
+            "std_prediction": 11228.366996500274,
+            "outcome_rate": 7916.179042857142,
+            "prediction_rate": 10007.798123742861,
+            "false_positive_rate": 0.0
+          },
+          "55": {
+            "size": 2,
+            "mean_prediction": 12866.965518449999,
+            "std_prediction": 597.9250923500003,
+            "outcome_rate": 10598.066900000002,
+            "prediction_rate": 12866.965518449999,
+            "false_positive_rate": 0.0
+          },
+          "35": {
+            "size": 5,
+            "mean_prediction": 6330.021102020002,
+            "std_prediction": 1459.9974312793115,
+            "outcome_rate": 5633.89769,
+            "prediction_rate": 6330.021102020002,
+            "false_positive_rate": 0.0
+          },
+          "37": {
+            "size": 3,
+            "mean_prediction": 18166.887848433336,
+            "std_prediction": 15188.613101593355,
+            "outcome_rate": 16673.177966666666,
+            "prediction_rate": 18166.887848433336,
+            "false_positive_rate": 0.0
+          },
+          "24": {
+            "size": 2,
+            "mean_prediction": 3511.0394079999996,
+            "std_prediction": 995.5391151000013,
+            "outcome_rate": 2421.185475,
+            "prediction_rate": 3511.0394079999996,
+            "false_positive_rate": 0.0
+          },
+          "51": {
+            "size": 6,
+            "mean_prediction": 10962.755807483336,
+            "std_prediction": 1507.8342738184701,
+            "outcome_rate": 9913.5772,
+            "prediction_rate": 10962.755807483336,
+            "false_positive_rate": 0.0
+          }
+        },
+        "disparity_metrics": {
+          "mean_prediction": {
+            "ratio": 8.623932669724107,
+            "difference": 26767.928047339985
+          },
+          "prediction_rate": {
+            "ratio": 8.623932669724107,
+            "difference": 26767.928047339985
+          }
+        }
+      },
+      "sex": {
+        "groups": {
+          "female": {
+            "size": 140,
+            "mean_prediction": 12481.368999588332,
+            "std_prediction": 10860.140470055465,
+            "outcome_rate": 12281.34597235,
+            "prediction_rate": 12481.368999588332,
+            "false_positive_rate": 0.0
+          },
+          "male": {
+            "size": 128,
+            "mean_prediction": 14461.267867964256,
+            "std_prediction": 13234.666429069866,
+            "outcome_rate": 13719.691693125,
+            "prediction_rate": 14461.267867964256,
+            "false_positive_rate": 0.0
+          }
+        },
+        "disparity_metrics": {
+          "mean_prediction": {
+            "ratio": 1.158628341846253,
+            "difference": 1979.8988683759235
+          },
+          "prediction_rate": {
+            "ratio": 1.158628341846253,
+            "difference": 1979.8988683759235
+          }
+        }
+      }
+    },
+    "healthcare_disparities": {},
+    "compliance_status": "compliant"
+  }
+}
