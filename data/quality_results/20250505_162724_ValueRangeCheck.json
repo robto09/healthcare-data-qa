@@ -1,0 +1,7 @@
+{
+  "check_name": "Value Range Check",
+  "table": "insurance_charges",
+  "status": "passed",
+  "timestamp": "2025-05-05 16:27:24",
+  "issues": []
+}
