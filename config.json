@@ -1,0 +1,17 @@
+{
+    "db_path": "data/healthcare.db",
+    "reports_dir": "validation_results",
+    "table_name": "insurance_data",
+    "thresholds": {
+        "minimum_accuracy": 0.90,
+        "maximum_bias": 0.10,
+        "maximum_disparity": 0.15,
+        "null_percentage_threshold": 5.0,
+        "outlier_threshold": 3.0
+    },
+    "validation": {
+        "output_dir": "validation_results",
+        "save_reports": true,
+        "generate_plots": true
+    }
+}
